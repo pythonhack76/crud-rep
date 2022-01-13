@@ -66,20 +66,20 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="mt-5 mb-3">View Record</h1>
+                    <h1 class="mt-5 mb-3">Visualizza Record</h1>
                     <div class="form-group">
-                        <label>Name</label>
+                        <label>Nome</label>
                         <p><b><?php echo $row["name"]; ?></b></p>
                     </div>
                     <div class="form-group">
-                        <label>Address</label>
+                        <label>Indirizzo</label>
                         <p><b><?php echo $row["address"]; ?></b></p>
                     </div>
                     <div class="form-group">
-                        <label>Salary</label>
+                        <label>Compenso</label>
                         <p><b><?php echo $row["salary"]; ?></b></p>
                     </div>
-                    <p><a href="index.php" class="btn btn-primary">Back</a></p>
+                    <p><a href="index.php" class="btn btn-primary">Ritorna indietro</a></p>
                 </div>
             </div>        
         </div>
