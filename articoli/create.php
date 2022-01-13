@@ -3,37 +3,37 @@
 require_once "../include/config.php";
  
 // Define variables and initialize with empty values
-$name = $descrizione = $qta = $prezzo = "";
-$name_err = $descrizione_err = $qta_err = $prezzo_err = "";
+$categoria = $articolo = $descrizione = $qta = $prezzo = "";
+$categoria_err = $articolo_err = $descrizione_err = $qta_err = $prezzo_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    // Validate name
-    $input_name = trim($_POST["name"]);
-    if(empty($input_name)){
-        $name_err = "Please enter a name.";
-    } elseif(!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-        $name_err = "Please enter a valid name.";
+    // Validazione articolo 
+    $input_articolo = trim($_POST["articolo"]);
+    if(empty($input_articolo)){
+        $articolo_err = "Si prega di inserire un nome articolo.";
+    } elseif(!filter_var($input_articolo, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+        $articolo_err = "SI prega di inserire un nome articolo valido.";
     } else{
-        $name = $input_name;
+        $articolo = $input_articolo;
     }
     
-    // Validate address
-    $input_address = trim($_POST["address"]);
-    if(empty($input_address)){
-        $address_err = "Please enter an address.";     
+    // Validate descrizione
+    $input_descrizione = trim($_POST["descrizione"]);
+    if(empty($input_descrizione)){
+        $descrizione_err = "Si prega di inserire una descrizione.";     
     } else{
-        $address = $input_address;
+        $descrizione = $input_descrizione;
     }
     
-    // Validate salary
-    $input_salary = trim($_POST["salary"]);
-    if(empty($input_salary)){
-        $salary_err = "Please enter the salary amount.";     
+    // Validazione prezzo
+    $input_prezzo = trim($_POST["prezzo"]);
+    if(empty($input_prezzo)){
+        $prezzo_err = "Si prega di inserire un prezzo.";     
     } elseif(!ctype_digit($input_salary)){
-        $salary_err = "Please enter a positive integer value.";
+        $prezzo_err = "Si prega di inserire un valore intero positivo.";
     } else{
-        $salary = $input_salary;
+        $salary = $input_prezzo;
     }
     
     // Check input errors before inserting in database
