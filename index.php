@@ -34,7 +34,7 @@
                     </div>
                     <?php
                     // Include config file
-                    require_once "config.php";
+                    require_once "./include/config.php";
                     
                     // Attempt select query execution
                     $sql = "SELECT * FROM employees";
@@ -56,7 +56,7 @@
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
                                         echo "<td>" . $row['address'] . "</td>";
-                                        echo "<td>" . $row['salary'] . "</td>";
+                                        echo "<td>" ."<b>€</b> " . $row['salary'] . "</td>";
                                         echo "<td>";
                                             echo '<a href="read.php?id='. $row['id'] .'" class="mr-3" title="Vedi Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
                                             echo '<a href="update.php?id='. $row['id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
