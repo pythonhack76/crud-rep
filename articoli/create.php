@@ -8,6 +8,17 @@ $categoria_err = $articolo_err = $descrizione_err = $qta_err = $prezzo_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+
+
+      // Validate descrizione
+      $input_categoria = trim($_POST["categoria"]);
+      if(empty($input_categoria)){
+          $categoria_err = "Si prega di inserire una categoria.";     
+      } else{
+          $categoria = $input_categoria;
+      }
+
     // Validazione articolo 
     $input_articolo = trim($_POST["articolo"]);
     if(empty($input_articolo)){
@@ -25,32 +36,49 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $descrizione = $input_descrizione;
     }
+
+      // Validazione qta
+      $input_qta = trim($_POST["qta"]);
+      if(empty($input_qta)){
+          $qta_err = "Si prega di inserire una quantità.";     
+      } elseif(!ctype_digit($input_qta)){
+          $qta_err = "Si prega di inserire un valore intero positivo.";
+      } else{
+          $qta = $input_qta;
+      }
+
+
     
     // Validazione prezzo
     $input_prezzo = trim($_POST["prezzo"]);
     if(empty($input_prezzo)){
         $prezzo_err = "Si prega di inserire un prezzo.";     
-    } elseif(!ctype_digit($input_salary)){
+    } elseif(!ctype_digit($input_prezzo)){
         $prezzo_err = "Si prega di inserire un valore intero positivo.";
     } else{
-        $salary = $input_prezzo;
+        $prezzo = $input_prezzo;
     }
     
     // Check input errors before inserting in database
-    if(empty($name_err) && empty($address_err) && empty($salary_err)){
+    if(empty($categoria_err) && empty($articolo_err) && empty($descrizione_err) && empty($qta_err) && empty($prezzo_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO articoli (name, descrizione, qta, prezzo) VALUES (:name, :descrizione, :qta, :prezzo)";
+        $sql = "INSERT INTO articoli (categoria, articolo, descrizione, qta, prezzo) VALUES (:categoria, :articolo, 
+        :descrizione, :qta, :prezzo)";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":name", $param_name);
-            $stmt->bindParam(":address", $param_address);
-            $stmt->bindParam(":salary", $param_salary);
+            $stmt->bindParam(":categoria", $param_categoria);
+            $stmt->bindParam(":articolo", $param_articolo);
+            $stmt->bindParam(":descrizione", $param_descrizione);
+            $stmt->bindParam(":qta", $param_qta);
+            $stmt->bindParam(":prezzo", $param_prezzo);
             
             // Set parameters
-            $param_name = $name;
-            $param_address = $address;
-            $param_salary = $salary;
+            $param_categoria = $categoria;
+            $param_articolo = $articolo;
+            $param_descrizione = $descrizione;
+            $param_qta = $qta;
+            $param_prezzo = $prezzo;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -82,15 +110,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <h2 class="mt-5">Inserisci Nuovo Articolo</h2>
                     <p>Per favore compila tutti i campi per aggiungere un nuovo articolo.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
+                    <div class="form-group">
+                            <label>Categoria</label>
+                            <input type="text" name="categoria" class="form-control <?php echo (!empty($categoria_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $categoria; ?>">
+                            <span class="invalid-feedback"><?php echo $categoria_err;?></span>
+                        </div>
                         <div class="form-group">
-                            <label>Nome</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err;?></span>
+                            <label>Articolo</label>
+                            <input type="text" name="articolo" class="form-control <?php echo (!empty($articolo_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $articolo; ?>">
+                            <span class="invalid-feedback"><?php echo $articolo_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Descrizione</label>
-                            <textarea name="address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>"><?php echo $address; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $address_err;?></span>
+                            <textarea name="descrizione" class="form-control <?php echo (!empty($descrizione_err)) ? 'is-invalid' : ''; ?>"><?php echo $descrizione; ?></textarea>
+                            <span class="invalid-feedback"><?php echo $descrizione_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Quantità</label>
@@ -110,7 +144,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
     </div>
     <div class="footer-img">
-        <img src="./imgs/articoli.jpg">
+        <img src="./imgs/articoli-smart.jpg">
     </div>
 </body>
 </html>

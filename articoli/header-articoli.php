@@ -6,9 +6,9 @@
     <style>
         .wrapper{
             width: 600px;
-            margin: 0 auto;
+            margin: -100px auto;
         }
     </style>
     <link rel="stylesheet" href="./css/style.css">
-    <header><img src="./imgs/logo-min.png"></header>
+    <header><img src="./imgs/computer.png"></header>
 </head>

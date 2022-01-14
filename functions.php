@@ -15,9 +15,6 @@ function eliminaCarattere($stringa){
 
 //echo eliminaCarattere('pippo');
 
-
-
-
 function stampaTitolo() {
 
     $title = $_SERVER['PHP_SELF'];
@@ -32,15 +29,10 @@ function stampaTitolo() {
              } 
         }
     }
-
-
     function Test() {
 
         echo "sono un test";
     }
-
-
-  
 
 
 

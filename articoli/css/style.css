@@ -1,12 +1,20 @@
 .footer-img img {
-    width: 50%;
-    height: 50%;
+    width: 25%;
+    height: 25%;
+  
     align-items: center;
     margin: 0 auto;
 
 }
+header {
+    margin: 0;
+}
+header img {
+    width: 10%;
+    height: 10%;
+   
+}
 
-.header img {
-    width: 50%;
-    height: 50%;
+.container-fluid {
+    margin: -10px; 
 }
