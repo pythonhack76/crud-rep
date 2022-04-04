@@ -3,7 +3,7 @@
 require_once "../include/config.php";
  
 // Define variables and initialize with empty values
-$categoria = $articolo = $descrizione = $qta = $prezzo = "";
+$categoria = $articolo = $descrizione = $qta = $prezzo = $immagine = "";
 $categoria_err = $articolo_err = $descrizione_err = $qta_err = $prezzo_err = "";
  
 // Processing form data when form is submitted
@@ -58,12 +58,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $prezzo = $input_prezzo;
     }
+
+
+       // Validate immagine
+    //    $input_immagine = trim($_POST["immagine"]);
+    //    if(empty($input_immagine)){
+    //        $immagine_err = "Si prega di inserire una descrizione.";     
+    //    } else{
+    //        $immagine = $input_immagine;
+    //    }
     
     // Check input errors before inserting in database
     if(empty($categoria_err) && empty($articolo_err) && empty($descrizione_err) && empty($qta_err) && empty($prezzo_err)){
+        
+         // Count total files
+    $countfiles = count($_FILES['files']['name']);
+        
+        
         // Prepare an insert statement
-        $sql = "INSERT INTO articoli (categoria, articolo, descrizione, qta, prezzo) VALUES (:categoria, :articolo, 
-        :descrizione, :qta, :prezzo)";
+        $sql = "INSERT INTO articoli (categoria, articolo, descrizione, qta, prezzo, immagine) VALUES (:categoria, :articolo, 
+        :descrizione, :qta, :prezzo, :immagine)";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -72,6 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->bindParam(":descrizione", $param_descrizione);
             $stmt->bindParam(":qta", $param_qta);
             $stmt->bindParam(":prezzo", $param_prezzo);
+            $stmt->bindParam(":immagine", $param_immagine);
             
             // Set parameters
             $param_categoria = $categoria;
@@ -79,6 +94,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_descrizione = $descrizione;
             $param_qta = $qta;
             $param_prezzo = $prezzo;
+            $param_immagine = $immagine;
+
+            // Loop all files
+    for($i = 0; $i < $countfiles; $i++) {
+   
+        // File name
+        $filename = $_FILES['files']['name'][$i];
+       
+        // Location
+        $target_file = 'upload/'.$filename;
+       
+        // file extension
+        $file_extension = pathinfo(
+            $target_file, PATHINFO_EXTENSION);
+              
+        $file_extension = strtolower($file_extension);
+       
+        // Valid image extension
+        $valid_extension = array("png","jpeg","jpg");
+       
+        if(in_array($file_extension, $valid_extension)) {
+   
+            // Upload file
+            if(move_uploaded_file(
+                $_FILES['files']['tmp_name'][$i],
+                $target_file)
+            ) {
+  
+                // Execute query
+                $statement->execute(
+                    array($filename,$target_file));
+            }
+        }
+    }
+      
+    echo "File upload successfully";
+}
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -109,7 +161,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="col-md-12">
                     <h2 class="mt-5">Inserisci Nuovo Articolo</h2>
                     <p>Per favore compila tutti i campi per aggiungere un nuovo articolo.</p>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 
                     <div class="form-group">
                             <label>Categoria</label>
@@ -136,6 +188,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <input type="text" name="prezzo" class="form-control <?php echo (!empty($prezzo_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $prezzo; ?>">
                             <span class="invalid-feedback"><?php echo $prezzo_err;?></span>
                         </div>
+                        <div class="form-group">
+                            <label>Immagine</label>
+                            <input type='file' name='files[]' multiple class="form-control" />
+                          
+                            
+                        </div>
+
+                        
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="index.php" class="btn btn-secondary ml-2">Cancella</a>
                     </form>

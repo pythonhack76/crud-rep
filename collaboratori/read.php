@@ -5,7 +5,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     require_once "../include/config.php";
     
     // Prepare a select statement
-    $sql = "SELECT * FROM articoli WHERE id = :id";
+    $sql = "SELECT * FROM employees WHERE id = :id";
     
     if($stmt = $pdo->prepare($sql)){
         // Bind variables to the prepared statement as parameters
@@ -22,11 +22,9 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                 // Retrieve individual field value
-                $categoria = $row["categoria"];
-                $articolo = $row["articolo"];
-                $descrizione = $row["descrizione"];
-                $qta = $row["qta"];
-                $prezzo = $row["prezzo"];
+                $name = $row["name"];
+                $address = $row["address"];
+                $salary = $row["salary"];
             } else{
                 // URL doesn't contain valid id parameter. Redirect to error page
                 header("location: error.php");
@@ -68,26 +66,18 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="mt-5 mb-3">Visualizza Articoli</h1>
+                    <h1 class="mt-5 mb-3">Visualizza Record</h1>
                     <div class="form-group">
-                        <label>Categoria</label>
-                        <p><b><?php echo $row["categoria"]; ?></b></p>
+                        <label>Nome</label>
+                        <p><b><?php echo $row["name"]; ?></b></p>
                     </div>
                     <div class="form-group">
-                        <label>Articolo</label>
-                        <p><b><?php echo $row["articolo"]; ?></b></p>
+                        <label>Indirizzo</label>
+                        <p><b><?php echo $row["address"]; ?></b></p>
                     </div>
                     <div class="form-group">
-                        <label>Descrizione</label>
-                        <p><b><?php echo $row["descrizione"]; ?></b></p>
-                    </div>
-                    <div class="form-group">
-                        <label>Quantità</label>
-                        <p><b><?php echo $row["qta"]; ?></b></p>
-                    </div>
-                    <div class="form-group">
-                        <label>Prezzo</label>
-                        <p><b><?php echo $row["prezzo"]; ?></b></p>
+                        <label>Compenso</label>
+                        <p><b><?php echo $row["salary"]; ?></b></p>
                     </div>
                     <p><a href="index.php" class="btn btn-primary">Ritorna indietro</a></p>
                 </div>
