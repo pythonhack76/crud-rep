@@ -5,7 +5,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     require_once "../include/config.php";
     
     // Prepare a select statement
-    $sql = "SELECT * FROM employees WHERE id = :id";
+    $sql = "SELECT * FROM partners WHERE id = :id";
     
     if($stmt = $pdo->prepare($sql)){
         // Bind variables to the prepared statement as parameters
@@ -23,8 +23,9 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 
                 // Retrieve individual field value
                 $name = $row["name"];
+                $cognome = $row["cognome"];
                 $address = $row["address"];
-                $salary = $row["salary"];
+                $rating = $row["rating"];
             } else{
                 // URL doesn't contain valid id parameter. Redirect to error page
                 header("location: error.php");
@@ -76,8 +77,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <p><b><?php echo $row["address"]; ?></b></p>
                     </div>
                     <div class="form-group">
-                        <label>Compenso</label>
-                        <p><b><?php echo $row["salary"]; ?></b></p>
+                        <label>Rating</label>
+                        <p><b><?php echo $row["rating"]; ?></b></p>
                     </div>
                     <p><a href="index.php" class="btn btn-primary">Ritorna indietro</a></p>
                 </div>
