@@ -90,7 +90,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Area Dashboard</title>
+    <title>Registrazione Nuovo Utente</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -114,8 +114,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <div class="wrapper">
-        <h2>Login</h2>
-        <p>Si prega di compilare tutti i campi per il login.</p>
+        <h2>Registrazione Nuovo Admin</h2>
+        <p>Si prega di compilare tutti i campi per registrare un nuovo Utente Admin.</p>
 
         <?php 
         if(!empty($login_err)){
@@ -135,11 +135,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
+                <input type="submit" class="btn btn-primary" value="Register">
             </div>
-            <p>Non hai un account? <a href="register.php">Crealo adesso!</a>.</p>
+            <p>Hai già un account? <a href="login.php">Accedi adesso!</a>.</p>
         </form>
     </div>
     <div class="footer-img"><img src="./imgs/admin-workers.jpg"></div>
+   
 </body>
 </html>

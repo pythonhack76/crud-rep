@@ -21,6 +21,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </style>
 </head>
 <body>
+    <?php include_once("../include/header.php"); ?>
     <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Benevenuto nella tua area riservata.</h1>
    
    <div class="container">

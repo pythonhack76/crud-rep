@@ -3,19 +3,20 @@
 require_once "../include/config.php";
  
 // Define variables and initialize with empty values
-$name = $address = $rating = "";
-$name_err = $address_err = $rating_err = "";
+$nrordine = $articolo = $descrizione = $qta = $prezzo = $idcliente = "";
+$nrordine_err = $articolo_err = $descrizione_err = $qta_err = $prezzo_err = $idcliente_err = "";
+
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    // Validate name
-    $input_name = trim($_POST["name"]);
-    if(empty($input_name)){
-        $name_err = "Please enter a name.";
-    } elseif(!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-        $name_err = "Please enter a valid name.";
+    // Validate articolo
+    $input_name = trim($_POST["articolo"]);
+    if(empty($input_articolo)){
+        $articolo_err = "Please inserisci un articolo.";
+    } elseif(!filter_var($input_articolo, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+        $articolo_err = "Please inserisci un contenuto per articolo!";
     } else{
-        $name = $input_name;
+        $articolo = $input_articolo;
     }
     
     // Validate address
@@ -39,18 +40,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($name_err) && empty($address_err) && empty($rating_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO employees (name, address, rating) VALUES (:name, :address, :rating)";
+        $sql = "INSERT INTO ordini (name, address, rating) VALUES (:name, :address, :rating)";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":name", $param_name);
-            $stmt->bindParam(":address", $param_address);
-            $stmt->bindParam(":rating", $param_rating);
+           
+            $stmt->bindParam(":nrordine", $param_nrordine);
+            $stmt->bindParam(":articolo", $param_articolo);
+            $stmt->bindParam(":descrizione", $param_descrizione);
+            $stmt->bindParam(":qta", $param_qta);
+            $stmt->bindParam(":prezzo", $param_prezzo);
+            $stmt->bindParam(":idcliente", $param_idcliente);
             
             // Set parameters
-            $param_name = $name;
-            $param_address = $address;
-            $param_rating = $rating;
+            $param_nrordine = $nrordine; 
+            $param_articolo = $articolo; 
+            $param_descrizione = $descrizione;
+            $param_qta = $rating;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -75,12 +81,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Crea Collaboratore</title>
+    <title>Crea Nuovo Ordine</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./styles.css">
     <style>
         .wrapper{
             width: 600px;
             margin: 0 auto;
+        }
+        table tr td:last-child{
+            width: 120px;
         }
     </style>
 </head>
@@ -89,13 +105,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mt-5">Crea Record</h2>
-                    <p>Per favore compila tutti i campi per poter aggiungere un nuovo collaboratore al database.</p>
+                    <h2 class="mt-5">Crea Nuovo Ordine</h2>
+                    <p>Per favore compila tutti i campi per poter aggiungere un nuovo ordine al database.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
-                            <label>Nome</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err;?></span>
+                            <label>Nr Ordine</label>
+                            <input type="text" name="nrordine" class="form-control <?php echo (!empty($nrordine_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $nrordine; ?>">
+                            <span class="invalid-feedback"><?php echo $nrordine_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Indirizzo</label>
@@ -110,6 +126,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="index.php" class="btn btn-secondary ml-2">Cancella</a>
                     </form>
+                    <div class="footer-img"><img src="./imgs/ordini.jpg"></div>
                 </div>
             </div>        
         </div>
