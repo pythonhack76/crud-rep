@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Partners</title>
+    <title>Vendite</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
         .wrapper{
             width: 600px;
@@ -24,15 +24,14 @@
         });
     </script>
 </head>
-<?php include('../include/header.php'); ?>
 <body>
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="mt-5 mb-3 clearfix">
-                        <h2 class="pull-left">Dettaglio Partners</h2>
-                        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi Partners</a>
+                        <h2 class="pull-left">Riepilogo Vendite</h2>
+                        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi Dipendente</a>
                     </div>
                     <?php
                     // Include config file
@@ -81,7 +80,7 @@
                     unset($pdo);
                     ?>
                 </div>
-                <div class="footer-img"><img src="./imgs/partners.jpg"></div>
+                <div class="footer-img"><img src="./imgs/collaboratori.jpg"></div>
             </div>        
         </div>
     </div>

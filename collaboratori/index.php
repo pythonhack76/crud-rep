@@ -38,7 +38,7 @@
                     require_once "../include/config.php";
 
                     // Attempt select query execution
-                    $sql = "SELECT * FROM employees";
+                    $sql = "SELECT * FROM collaboratori";
                     if($result = $pdo->query($sql)){
                         if($result->rowCount() > 0){
                             echo '<table class="table table-bordered table-striped">';
@@ -54,14 +54,14 @@
                                 echo "<tbody>";
                                 while($row = $result->fetch()){
                                     echo "<tr>";
-                                        echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['address'] . "</td>";
-                                        echo "<td>" ."<b>€</b> " . $row['rating'] . "</td>";
+                                        echo "<td>" . $row['CollaboratoreID'] . "</td>";
+                                        echo "<td>" . $row['nome'] . "</td>";
+                                        echo "<td>" . $row['indirizzo'] . "</td>";
+                                        echo "<td>" ."<b>€</b> " . $row['compenso'] . "</td>";
                                         echo "<td>";
-                                            echo '<a href="read.php?id='. $row['id'] .'" class="mr-3" title="Vedi Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                                            echo '<a href="update.php?id='. $row['id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                            echo '<a href="delete.php?id='. $row['id'] .'" title="Elimina Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                            echo '<a href="read.php?id='. $row['CollaboratoreID'] .'" class="mr-3" title="Vedi Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
+                                            echo '<a href="update.php?id='. $row['CollaboratoreID'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                            echo '<a href="delete.php?id='. $row['CollaboratoreID'] .'" title="Elimina Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                         echo "</td>";
                                     echo "</tr>";
                                 }

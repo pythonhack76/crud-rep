@@ -3,8 +3,8 @@
 require_once "../include/config.php";
  
 // Define variables and initialize with empty values
-$name = $address = $rating = "";
-$name_err = $address_err = $rating_err = "";
+$nome = $indirizzo = $compenso = "";
+$nome_err = $indirizzo_err = $compenso_err = "";
  
 // Processing form data when form is submitted
 if(isset($_POST["id"]) && !empty($_POST["id"])){
@@ -12,49 +12,49 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     $id = $_POST["id"];
     
     // Validate name
-    $input_name = trim($_POST["name"]);
+    $input_name = trim($_POST["nome"]);
     if(empty($input_name)){
-        $name_err = "Please enter a name.";
+        $nome_err = "Please enter a name.";
     } elseif(!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-        $name_err = "Please enter a valid name.";
+        $nome_err = "Please enter a valid name.";
     } else{
-        $name = $input_name;
+        $nome = $input_name;
     }
     
-    // Validate address address
-    $input_address = trim($_POST["address"]);
-    if(empty($input_address)){
-        $address_err = "Please enter an address.";     
+    // Validate indirizzo indirizzo
+    $input_indirizzo = trim($_POST["indirizzo"]);
+    if(empty($input_indirizzo)){
+        $indirizzo_err = "Please enter an indirizzo.";     
     } else{
-        $address = $input_address;
+        $indirizzo = $input_indirizzo;
     }
     
-    // Validate rating
-    $input_rating = trim($_POST["rating"]);
-    if(empty($input_rating)){
-        $rating_err = "Please enter the rating amount.";     
-    } elseif(!ctype_digit($input_rating)){
-        $rating_err = "Please enter a positive integer value.";
+    // Validate compenso
+    $input_compenso = trim($_POST["compenso"]);
+    if(empty($input_compenso)){
+        $compenso_err = "Please enter the compenso amount.";     
+    } elseif(!ctype_digit($input_compenso)){
+        $compenso_err = "Please enter a positive integer value.";
     } else{
-        $rating = $input_rating;
+        $compenso = $input_compenso;
     }
     
     // Check input errors before inserting in database
-    if(empty($name_err) && empty($address_err) && empty($rating_err)){
+    if(empty($nome_err) && empty($indirizzo_err) && empty($compenso_err)){
         // Prepare an update statement
-        $sql = "UPDATE employees SET name=:name, address=:address, rating=:rating WHERE id=:id";
+        $sql = "UPDATE collaboratori SET nome=:nome, indirizzo=:indirizzo, compenso=:compenso WHERE CollaboratoreID =:id";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":name", $param_name);
-            $stmt->bindParam(":address", $param_address);
-            $stmt->bindParam(":rating", $param_rating);
+            $stmt->bindParam(":nome", $param_nome);
+            $stmt->bindParam(":indirizzo", $param_indirizzo);
+            $stmt->bindParam(":compenso", $param_compenso);
             $stmt->bindParam(":id", $param_id);
             
             // Set parameters
-            $param_name = $name;
-            $param_address = $address;
-            $param_rating = $rating;
+            $param_nome = $nome;
+            $param_indirizzo = $indirizzo;
+            $param_compenso = $compenso;
             $param_id = $id;
             
             // Attempt to execute the prepared statement
@@ -80,7 +80,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         $id =  trim($_GET["id"]);
         
         // Prepare a select statement
-        $sql = "SELECT * FROM employees WHERE id = :id";
+        $sql = "SELECT * FROM collaboratori WHERE CollaboratoreID = :id";
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":id", $param_id);
@@ -96,9 +96,9 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                     // Retrieve individual field value
-                    $name = $row["name"];
-                    $address = $row["address"];
-                    $rating = $row["rating"];
+                    $nome = $row["nome"];
+                    $indirizzo = $row["indirizzo"];
+                    $compenso = $row["compenso"];
                 } else{
                     // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
@@ -146,18 +146,18 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                         <div class="form-group">
                             <label>Nome</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err;?></span>
+                            <input type="text" name="nome" class="form-control <?php echo (!empty($nome_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $nome; ?>">
+                            <span class="invalid-feedback"><?php echo $nome_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Indirizzo</label>
-                            <textarea name="address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>"><?php echo $address; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $address_err;?></span>
+                            <textarea name="indirizzo" class="form-control <?php echo (!empty($indirizzo_err)) ? 'is-invalid' : ''; ?>"><?php echo $indirizzo; ?></textarea>
+                            <span class="invalid-feedback"><?php echo $indirizzo_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Compenso</label>
-                            <input type="text" name="rating" class="form-control <?php echo (!empty($rating_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $rating; ?>">
-                            <span class="invalid-feedback"><?php echo $rating_err;?></span>
+                            <input type="text" name="compenso" class="form-control <?php echo (!empty($compenso_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $compenso; ?>">
+                            <span class="invalid-feedback"><?php echo $compenso_err;?></span>
                         </div>
                         <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                         <input type="submit" class="btn btn-primary" value="Submit">

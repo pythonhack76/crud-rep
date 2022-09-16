@@ -5,7 +5,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     require_once "../include/config.php";
     
     // Prepare a delete statement
-    $sql = "DELETE FROM employees WHERE id = :id";
+    $sql = "DELETE FROM collaboratori WHERE CollaboratoreID = :id";
     
     if($stmt = $pdo->prepare($sql)){
         // Bind variables to the prepared statement as parameters
@@ -20,7 +20,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             header("location: index.php");
             exit();
         } else{
-            echo "Oops! Something went wrong. Please try again later.";
+            echo "Oops! Qualcosa non funziona. Prego, riprova!";
         }
     }
      
@@ -43,7 +43,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Delete Record</title>
+    <title>Elimina Record</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{

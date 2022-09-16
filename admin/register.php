@@ -1,33 +1,25 @@
 <?php
-// Initialize the session
-session_start();
- 
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: admin-dashboard.php");
-    exit;
-}
- 
 // Include config file
 require_once "../include/config.php";
  
 // Define variables and initialize with empty values
 $username = $password = "";
-$username_err = $password_err = $login_err = "";
+$livello = 0;
+$username_err = $password_err =  "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if username is empty
     if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
+        $username_err = "Si prega di inserire un valore per username.";
     } else{
         $username = trim($_POST["username"]);
     }
     
     // Check if password is empty
     if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter your password.";
+        $password_err = "Si prega di inserire un valore valido per password.";
     } else{
         $password = trim($_POST["password"]);
     }
@@ -53,13 +45,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         $username = $row["username"];
                         $hashed_password = $row["password"];
                         if(password_verify($password, $hashed_password)){
-                            // Password is correct, so start a new session
-                            session_start();
+                            //Password is correct, so start a new session
+                            // session_start();
+                            // 
+                           // Store data in session variables
+                            // $_SESSION["loggedin"] = true;
+                            // $_SESSION["id"] = $id;
+                            // $_SESSION["username"] = $username; 
                             
-                            // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
+                            
+                //creazione modulo per inserimento dati su tabella Admin
+
+                 // Prepare an insert statement
+ $sql = "INSERT INTO admin_users (username, password, livello) VALUES (:username, :password, :livello)";
+ if($stmt = $pdo->prepare($sql)){
+     // Bind variables to the prepared statement as parameters
+     $stmt->bindParam(":username", $param_username);
+     $stmt->bindParam(":password", $param_password);
+     $stmt->bindParam(":livello", $param_livello);
+     
+     // Set parameters
+     $param_username = $username;
+     $param_password = $password;
+     $param_livello = $livello;
+     
+     // Attempt to execute the prepared statement
+     if($stmt->execute()){
+         // Records created successfully. Redirect to landing page
+         header("location: index.php");
+         exit();
+     } else{
+         echo "Oops! Something went wrong. Please try again later.";
+     }
+ }
+
+            //dovremmo aver inserito i dati 
+
+                        
                             
                             // Redirect user to welcome page
                             header("location: welcome.php");

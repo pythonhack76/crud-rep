@@ -7,6 +7,8 @@ define('DB_PASSWORD', 'root');
 define('DB_NAME', 'enterprise');
 define('DB_AUTHOR', 'spritecoder');
 
+
+
 /* Attempt to connect to MySQL database */
 try{
     $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);

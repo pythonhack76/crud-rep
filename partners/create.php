@@ -55,13 +55,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":name", $param_name);
+            $stmt->bindParam(":name", $param_nome);
             $stmt->bindParam(":cognome", $param_cognome);
             $stmt->bindParam(":address", $param_address);
             $stmt->bindParam(":rating", $param_rating);
             
             // Set parameters
-            $param_name = $name;
+            $param_nome = $name;
             $param_cognome = $cognome;
             $param_address = $address;
             $param_rating = $rating;

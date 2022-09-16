@@ -46,13 +46,13 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":name", $param_name);
+            $stmt->bindParam(":name", $param_nome);
             $stmt->bindParam(":address", $param_address);
             $stmt->bindParam(":rating", $param_rating);
             $stmt->bindParam(":id", $param_id);
             
             // Set parameters
-            $param_name = $name;
+            $param_nome = $name;
             $param_address = $address;
             $param_rating = $rating;
             $param_id = $id;

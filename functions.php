@@ -34,8 +34,19 @@ function stampaTitolo() {
         echo "sono un test";
     }
 
+    // function Calendario() {
+        // $mese = date('m');
+        // $anno = date('Y');
+        // $giorni = cal_days_in_month(CAL_GREGORIAN, $mese, $anno);
+        // echo $giorni;
+    // }
 
 
+    function manageAdmin(){
+        $superAdmin = 'lrulvoni@gmail.com';
+        $admin = ''; 
+        
+    }
 
 
 ?>
