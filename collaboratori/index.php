@@ -47,7 +47,7 @@
                                         echo "<th>#</th>";
                                         echo "<th>Nome</th>";
                                         echo "<th>Indirizzo</th>";
-                                        echo "<th>Compenso</th>";
+                                        echo "<th>citta</th>";
                                         echo "<th>Azione</th>";
                                     echo "</tr>";
                                 echo "</thead>";
@@ -57,7 +57,7 @@
                                         echo "<td>" . $row['CollaboratoreID'] . "</td>";
                                         echo "<td>" . $row['nome'] . "</td>";
                                         echo "<td>" . $row['indirizzo'] . "</td>";
-                                        echo "<td>" ."<b>€</b> " . $row['compenso'] . "</td>";
+                                        echo "<td>" ."<b>€</b> " . $row['citta'] . "</td>";
                                         echo "<td>";
                                             echo '<a href="read.php?id='. $row['CollaboratoreID'] .'" class="mr-3" title="Vedi Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
                                             echo '<a href="update.php?id='. $row['CollaboratoreID'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';

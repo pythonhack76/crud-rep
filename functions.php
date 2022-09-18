@@ -1,5 +1,25 @@
 <?php
 
+function TitlePage(){
+
+    $link = $_SERVER['REQUEST_URI'];
+        $explode_link = explode("/", $link);
+        // $_ultimo = $explode_link[0];
+        // echo $_ultimo; 
+
+        $toEnd  = count($explode_link);
+        foreach($explode_link as $key=>$value){
+           if ( 0 === --$toEnd) {
+            echo substr($value,0,-4);
+                }
+           }
+
+        }
+
+
+
+
+
 function eliminaEstensione() {
 
     $estensioni = ['.php'.'html','.htm','.pdf','.PHP','.HTML','HTM','.PDF'];

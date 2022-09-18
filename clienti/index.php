@@ -24,7 +24,7 @@ include('./include/header_site.php');
                                         echo "<th>#</th>";
                                         echo "<th>Nome</th>";
                                         echo "<th>Indirizzo</th>";
-                                        echo "<th>Compenso</th>";
+                                        echo "<th>citta</th>";
                                         echo "<th>Azione</th>";
                                     echo "</tr>";
                                 echo "</thead>";

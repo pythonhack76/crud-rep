@@ -3,8 +3,8 @@
 require_once "../include/config.php";
  
 // Define variables and initialize with empty values
-$nome = $indirizzo = $compenso = "";
-$nome_err = $indirizzo_err = $compenso_err = "";
+$nome = $indirizzo = $citta = "";
+$nome_err = $indirizzo_err = $citta_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -26,31 +26,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $indirizzo = $input_indirizzo;
     }
     
-    // Validate compenso
-    $input_compenso = trim($_POST["compenso"]);
-    if(empty($input_compenso)){
-        $compenso_err = "Please enter the compenso amount.";     
-    } elseif(!ctype_digit($input_compenso)){
-        $compenso_err = "Please enter a positive integer value.";
+    // Validate citta
+    $input_citta = trim($_POST["citta"]);
+    if(empty($input_citta)){
+        $citta_err = "Please enter the citta amount.";     
+    } elseif(!ctype_digit($input_citta)){
+        $citta_err = "Please enter a positive integer value.";
     } else{
-        $compenso = $input_compenso;
+        $citta = $input_citta;
     }
     
     // Check input errors before inserting in database
-    if(empty($nome_err) && empty($indirizzo_err) && empty($compenso_err)){
+    if(empty($nome_err) && empty($indirizzo_err) && empty($citta_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO collaboratori (nome, indirizzo, compenso) VALUES (:nome, :indirizzo, :compenso)";
+        $sql = "INSERT INTO collaboratori (nome, indirizzo, citta) VALUES (:nome, :indirizzo, :citta)";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(":nome", $param_nome);
             $stmt->bindParam(":indirizzo", $param_indirizzo);
-            $stmt->bindParam(":compenso", $param_compenso);
+            $stmt->bindParam(":citta", $param_citta);
             
             // Set parameters
             $param_nome = $nome;
             $param_indirizzo = $indirizzo;
-            $param_compenso = $compenso;
+            $param_citta = $citta;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -103,9 +103,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <span class="invalid-feedback"><?php echo $indirizzo_err;?></span>
                         </div>
                         <div class="form-group">
-                            <label>Compenso</label>
-                            <input type="text" name="compenso" class="form-control <?php echo (!empty($compenso_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $compenso; ?>">
-                            <span class="invalid-feedback"><?php echo $compenso_err;?></span>
+                            <label>citta</label>
+                            <input type="text" name="citta" class="form-control <?php echo (!empty($citta_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $citta; ?>">
+                            <span class="invalid-feedback"><?php echo $citta_err;?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="index.php" class="btn btn-secondary ml-2">Cancella</a>

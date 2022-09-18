@@ -1,6 +1,8 @@
 <?php
 // Initialize the session
 session_start();
+
+include('../functions.php');
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -13,7 +15,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Benvenuto</title>
+    <title><?php TitlePage(); ?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="./styles.css">
     <style>
@@ -22,11 +24,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </head>
 <body>
     <?php include_once("../include/header.php"); ?>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Benevenuto nella tua area riservata.</h1>
+    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Benvenuto nella tua area riservata.</h1>
    
    <div class="container">
-       <p>
-           <img src="" alt="immagine dashboard">
+       <p>           
        </p>
    </div>
     <p>
@@ -34,5 +35,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <a href="logout.php" class="btn btn-danger ml-3">Esci ora da Account</a>
     </p>
     <div class="footer-img"><img src="./imgs/dashboard.jpg"></div>
+    <div class="servizi">
+    <p>
+     <a href="view-abbonamenti.php" class="btn btn-warning">Abbonamenti</a>
+     <a href="add_abbonati.php" class="btn btn-danger ml-3">Gestisci Abbonati</a>
+ </p>
+    </div>
 </body>
 </html>

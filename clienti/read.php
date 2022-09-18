@@ -76,7 +76,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                         <p><b><?php echo $row["address"]; ?></b></p>
                     </div>
                     <div class="form-group">
-                        <label>Compenso</label>
+                        <label>citta</label>
                         <p><b><?php echo $row["rating"]; ?></b></p>
                     </div>
                     <p><a href="index.php" class="btn btn-primary">Ritorna indietro</a></p>
